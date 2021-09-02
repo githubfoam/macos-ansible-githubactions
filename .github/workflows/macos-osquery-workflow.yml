@@ -11,6 +11,26 @@ on:
 
 jobs:
 
+  macos-latest-wireshark:
+      name: "osquery - macos-latest 10.15.7"
+      runs-on: macos-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: "brew update"
+        run: brew update     
+      - name: "check on brew version"
+        run: brew --version  
+      - name: "Install wireshark"
+        run: |
+          pwd
+          # https://www.wireshark.org/download.html
+          curl -O https://1.eu.dl.wireshark.org/osx/Wireshark%203.4.8%20Intel%2064.dmg
+          hdiutil attach Wireshark 3.4.8 Intel 64.dmg
+          cd /Volumes/Wireshark 3.4.8 Intel 64/
+          sudo installer -pkg Wireshark 3.4.8 Intel 64.pkg -target "/"
+          hdiutil detach "Wireshark 3.4.8 Intel 64.dmg"
+
   macos-latest-osquery:
       name: "osquery - macos-latest 10.15.7"
       runs-on: macos-latest
